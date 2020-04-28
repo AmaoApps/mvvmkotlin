@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pe.paku.mvvmkotlin.api.OperationCallback
+import pe.paku.mvvmkotlin.api.Status
 import pe.paku.mvvmkotlin.beans.LibroBean
 import pe.paku.mvvmkotlin.data.LibroRepository
 
@@ -56,7 +57,21 @@ class LibroViewModel : ViewModel() {
         })
         */
 
-        _libros.value = libroRepository.obtenerLibrosSuspend();
+        /* SIn manejo de erreoes
+        _libros.value = libroRepository.obtenerLibrosSuspend()
+        _isViewLoading.postValue(false)
+         */
+
+        /*Con Manejo de Errores */
+        val respuesta = libroRepository.obtenerLibrosSuspend()
+        val status = respuesta.status
+        when(status){
+            Status.SUCCESS -> _libros.value = respuesta.data
+            Status.ERROR -> _onMessageError.postValue(respuesta.message)
+            Status.LOADING ->  _isViewLoading.postValue(true)
+        }
+
+        _isViewLoading.postValue(false)
 
     }
 

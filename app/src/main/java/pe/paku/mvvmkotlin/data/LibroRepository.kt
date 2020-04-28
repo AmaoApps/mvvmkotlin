@@ -1,11 +1,14 @@
 package pe.paku.mvvmkotlin.data
 
 import pe.paku.mvvmkotlin.api.OperationCallback
+import pe.paku.mvvmkotlin.api.Recurso
+import pe.paku.mvvmkotlin.api.ResponseHandler
 import pe.paku.mvvmkotlin.api.RetrofitBuilder
 import pe.paku.mvvmkotlin.beans.LibroBean
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 
 class LibroRepository : LibroDataSource {
@@ -38,8 +41,17 @@ class LibroRepository : LibroDataSource {
 
     }
 
-    suspend fun obtenerLibrosSuspend(){
-        RetrofitBuilder.apiService.obtenerBusquedav2("newest")
+    suspend fun obtenerLibrosSuspend(): Recurso<ArrayList<LibroBean>> {
+        //Sin manejo de errores -  todo bien
+        //RetrofitBuilder.apiServiceCoroutine.obtenerBusquedav2("newest")
+
+        //Con Manejo de errores
+        return try {
+            return ResponseHandler().handleSuccess(RetrofitBuilder.apiServiceCoroutine.obtenerBusquedav2("newest"))
+        } catch (e: Exception) {
+            return ResponseHandler().handleException(e)
+        }
+
     }
 
     override fun obtenerUltimosLibros(callback: OperationCallback<List<LibroBean>>) {
