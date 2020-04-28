@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.MainActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_libros"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/container_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/errorimage" />
+
+        <TextView
+            android:id="@+id/tv_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/opensans"
+            android:layout_margin="8dp"
+            android:text="Ocurrió un problema al conectarse \n  al servidor"
+            android:textColor="@color/color_error"
+            android:textAlignment="center"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volver a intentar"
+            android:textColor="@color/color_text_light"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/color_success"/>
+
+
+    </LinearLayout>
+
+    <xyz.peridy.shimmerlayout.ShimmerLayout
+        android:id="@+id/shimmer_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/shimmer_layout_libro"/>
+            <include layout="@layout/shimmer_layout_libro"/>
+            <include layout="@layout/shimmer_layout_libro"/>
+            <include layout="@layout/shimmer_layout_libro"/>
+            <include layout="@layout/shimmer_layout_libro"/>
+            <include layout="@layout/shimmer_layout_libro"/>
+            <include layout="@layout/shimmer_layout_libro"/>
+            <include layout="@layout/shimmer_layout_libro"/>
+
+        </LinearLayout>
+
+
+
+
+
+    </xyz.peridy.shimmerlayout.ShimmerLayout>
+
+</FrameLayout>
